@@ -1,11 +1,23 @@
 import './App.css';
+import Card from "./components/Card";
 
+const activeCards = [
+  { title: "Active Trip", text: "No active trip", buttonText: "View Trip" },
+  { title: "Active Session", text: "No active session", buttonText: "View Session" },
+  { title: "Active Games", text: "No active games", buttonText: "View Games" },
+];
+
+const newCards = [
+  { title: "New Trip", text: "Create a new trip", buttonText: "Create Trip" },
+  { title: "New Session", text: "Create a new session", buttonText: "Create Session" },
+  { title: "New Game", text: "Create a new game", buttonText: "Create Game" },
+];
 
 function App() {
 
   return (
       <>
-      
+
       <header className="main-header">
   <div className="brand-box">
     <h1>GambStats</h1>
@@ -19,29 +31,15 @@ function App() {
     <h2 className="section-title">Active Now</h2>
 
     <div className="card-row">
-      <div className="card">
-        <div className="card-body">
-          <h3 className="card-title">Active Trip</h3>
-          <p className="card-text">No active trip</p>
-          <button className="card-btn">View Trip</button>
-        </div>
-      </div>
 
-      <div className="card">
-        <div className="card-body">
-          <h3 className="card-title">Active Session</h3>
-          <p className="card-text">No active session</p>
-          <button className="card-btn">View Session</button>
-        </div>
-      </div>
-
-      <div className="card">
-        <div className="card-body">
-          <h3 className="card-title">Active Games</h3>
-          <p className="card-text">No active games</p>
-          <button className="card-btn">View Games</button>
-        </div>
-      </div>
+      {activeCards.map((card) => (
+    <Card
+      key={card.title}
+      title={card.title}
+      text={card.text}
+      buttonText={card.buttonText}
+      />
+    ))}
     </div>
   </section>
 
@@ -49,23 +47,17 @@ function App() {
     <h2 className="section-title">Start Now</h2>
 
     <div className="card-row">
-      <div className="card">
-        <h3 className="card-title">New Trip</h3>
-        <button className="card-btn">Create Trip</button>
-      </div>
-
-      <div className="card">
-        <h3 className="card-title">New Session</h3>
-        <button className="card-btn">Create Session</button>
-      </div>
-
-      <div className="card">
-        <h3 className="card-title">New Game</h3>
-        <button className="card-btn">Create Game</button>
-      </div>
+      
+      {newCards.map((card) => (
+        <Card
+          key={card.title}
+          title={card.title}
+          text={card.text}
+          buttonText={card.buttonText}
+        />
+      ))}
     </div>
   </section>
-
   <section>
     <h2 className="section-title">My History</h2>
   </section>
