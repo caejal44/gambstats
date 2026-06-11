@@ -1,83 +1,41 @@
-import './App.css';
-import Card from "./components/Card";
+import { createBrowserRouter, type RouteObject } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import TripHistory from "./pages/TripHistory";
+import GameHistory from "./pages/GameHistory";
+import NewGame from "./pages/NewGame";
+import NewSession from "./pages/NewSession";
+import NewTrip from "./pages/NewTrip";
+import SessionHistory from "./pages/SessionHistory";
 
-const activeCards = [
-  { title: "Active Trip", text: "No active trip", buttonText: "View Trip" },
-  { title: "Active Session", text: "No active session", buttonText: "View Session" },
-  { title: "Active Games", text: "No active games", buttonText: "View Games" },
+
+const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <Dashboard />,
+  },
+  {
+    path: "/trips",
+    element: <TripHistory />,
+  },
+  {
+    path: "/trips/new",
+    element: <NewTrip />,
+  },
+  {
+    path: "/sessions",
+    element: <SessionHistory />,
+  },
+  {
+    path: "/sessions/new",
+    element: <NewSession />,
+  },
+  {
+    path: "/games",
+    element: <GameHistory />,
+  },
+  {
+    path: "/games/new",
+    element: <NewGame />,
+  },
 ];
-
-const newCards = [
-  { title: "New Trip", text: "Create a new trip", buttonText: "Create Trip" },
-  { title: "New Session", text: "Create a new session", buttonText: "Create Session" },
-  { title: "New Game", text: "Create a new game", buttonText: "Create Game" },
-];
-
-const historyCards = [
-  { title: "Trip History", text: "View your trip history", buttonText: "View Trips" },
-  { title: "Session History", text: "View your session history", buttonText: "View Sessions" },
-  { title: "Game History", text: "View your game history", buttonText: "View Games" },
-];
-
-function App() {
-
-  return (
-      <>
-
-      <header className="main-header">
-  <div>
-    <h1 className="main-header-h1">GambStats</h1>
-  </div>
-</header>
-
-<main className="dashboard-panel">
-  <section>
-    <h2 className="section-title">Active Now</h2>
-
-    <div className="card-row">
-
-      {activeCards.map((card) => (
-    <Card
-      key={card.title}
-      title={card.title}
-      text={card.text}
-      buttonText={card.buttonText}
-      />
-    ))}
-    </div>
-  </section>
-
-  <section>
-    <h2 className="section-title">Start Now</h2>
-
-    <div className="card-row">
-      
-      {newCards.map((card) => (
-        <Card
-          key={card.title}
-          title={card.title}
-          text={card.text}
-          buttonText={card.buttonText}
-        />
-      ))}
-    </div>
-  </section>
-  <section>
-    <h2 className="section-title">My History</h2>
-    <div className="card-row">
-      {historyCards.map((card) => (
-        <Card
-          key={card.title}
-          title={card.title}
-          text={card.text}
-          buttonText={card.buttonText}
-        />
-      ))}
-    </div>
-  </section>
-      </main>
-    </>
-  )
-}
-
-export default App
+export const router = createBrowserRouter(routes);
