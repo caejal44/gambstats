@@ -13,20 +13,24 @@ const newCards = [
   { title: "New Game", text: "Create a new game", buttonText: "Create Game" },
 ];
 
+const historyCards = [
+  { title: "Trip History", text: "View your trip history", buttonText: "View Trips" },
+  { title: "Session History", text: "View your session history", buttonText: "View Sessions" },
+  { title: "Game History", text: "View your game history", buttonText: "View Games" },
+];
+
 function App() {
 
   return (
       <>
 
       <header className="main-header">
-  <div className="brand-box">
-    <h1>GambStats</h1>
+  <div>
+    <h1 className="main-header-h1">GambStats</h1>
   </div>
 </header>
 
-<hr />
-
-<main className="page-content">
+<main className="dashboard-panel">
   <section>
     <h2 className="section-title">Active Now</h2>
 
@@ -60,6 +64,16 @@ function App() {
   </section>
   <section>
     <h2 className="section-title">My History</h2>
+    <div className="card-row">
+      {historyCards.map((card) => (
+        <Card
+          key={card.title}
+          title={card.title}
+          text={card.text}
+          buttonText={card.buttonText}
+        />
+      ))}
+    </div>
   </section>
       </main>
     </>
