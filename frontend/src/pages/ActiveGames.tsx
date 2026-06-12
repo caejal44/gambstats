@@ -1,14 +1,15 @@
 import Layout from "../components/Layout";
 import '../App.css';
 
-function SessionHistory() {
+
+function ActiveGames() {
   return (
     <Layout>
       <section>
-        <h2 className="section-title">Session History</h2>
+        <h2 className="section-title">Active Games</h2>
       </section>
     </Layout>
   );
 }
 
-export default SessionHistory;
+export default ActiveGames;

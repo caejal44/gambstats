@@ -1,14 +1,15 @@
 import Layout from "../components/Layout";
 import '../App.css';
 
-function SessionHistory() {
+
+function ActiveTrip() {
   return (
     <Layout>
       <section>
-        <h2 className="section-title">Session History</h2>
+        <h2 className="section-title">Active Trip</h2>
       </section>
     </Layout>
   );
 }
 
-export default SessionHistory;
+export default ActiveTrip;

@@ -1,10 +1,11 @@
 import '../App.css';
 import Card from "../components/Card";
+import Layout from "../components/Layout";
 
 const activeCards = [
-  { title: "Active Trip", text: "No active trip", buttonText: "View Trip"},
-  { title: "Active Session", text: "No active session", buttonText: "View Session" },
-  { title: "Active Games", text: "No active games", buttonText: "View Games" },
+  { title: "Active Trip", text: "No active trip", buttonText: "View Trip", path: "/trips/active"},
+  { title: "Active Session", text: "No active session", buttonText: "View Session", path: "/sessions/active" },
+  { title: "Active Games", text: "No active games", buttonText: "View Games", path: "/games/active" },
 ];
 
 const newCards = [
@@ -24,12 +25,7 @@ function Dashboard() {
   return (
       <>
 
-      <header className="main-header">
-  <div>
-    <h1 className="main-header-h1">GambStats</h1>
-  </div>
-</header>
-
+<Layout>
 <main className="dashboard-panel">
   <section>
     <h2 className="section-title">Active Now</h2>
@@ -42,6 +38,7 @@ function Dashboard() {
       title={card.title}
       text={card.text}
       buttonText={card.buttonText}
+      path={card.path}
       />
     ))}
     </div>
@@ -78,6 +75,7 @@ function Dashboard() {
     </div>
   </section>
       </main>
+      </Layout>
     </>
   )
 }

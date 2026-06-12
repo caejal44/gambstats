@@ -1,5 +1,14 @@
+import Layout from "../components/Layout";
+import '../App.css';
+
 function NewTrip() {
-  return <h1>New Trip</h1>;
+  return (
+    <Layout>
+      <section>
+        <h2 className="section-title">New Trip</h2>
+      </section>
+    </Layout>
+  );
 }
 
 export default NewTrip;

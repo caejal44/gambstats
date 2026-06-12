@@ -1,5 +1,14 @@
+import Layout from "../components/Layout";
+import '../App.css';
+
 function NewSession() {
-  return <h1>New Session</h1>;
+  return (
+    <Layout>
+      <section>
+        <h2 className="section-title">New Session</h2>
+      </section>
+    </Layout>
+  );
 }
 
 export default NewSession;

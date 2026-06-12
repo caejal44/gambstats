@@ -120,4 +120,20 @@ h1{
   font-weight: bold;
   font-family: 'Inter', sans-serif;
 }
+.page-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
 
+.page-nav a,
+.page-nav a:visited,
+.page-nav a:active {
+  color: #f9f3f3;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.page-nav a:hover {
+  color: #007bff;
+}
