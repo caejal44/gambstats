@@ -137,3 +137,29 @@ h1{
 .page-nav a:hover {
   color: #007bff;
 }
+
+.trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.trip-form label {
+  color: #f9f3f3;
+  font-weight: 600;
+}
+
+.trip-form input,
+.trip-form textarea {
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+.trip-form button {
+  width: 200px;
+  align-self: center;
+}
