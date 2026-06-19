@@ -1,36 +1,125 @@
 import Layout from "../components/Layout";
-import '../App.css';
+import "../App.css";
+import { useState } from "react";
+import { createTrip } from "../services/tripService";
+import { useNavigate } from "react-router-dom";
 
-
+type FormData = {
+  tripName: string;
+  location: string;
+  tripBudget: string;
+  startedAt: string;
+  notes: string;
+};
 
 function NewTrip() {
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+
+  const [formData, setFormData] = useState<FormData>({
+    tripName: "",
+    location: "",
+    tripBudget: "",
+    startedAt: "",
+    notes: "",
+  });
+
+  const navigate = useNavigate();
+  
+  function handleInputChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = event.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
   event.preventDefault();
 
-  console.log("Trip form submitted");
+  const payload = {
+    tripName: formData.tripName,
+    location: formData.location,
+    tripBudget: formData.tripBudget,
+    startedAt: formData.startedAt,
+    notes: formData.notes,
+  };
+
+  try {
+    const createdTrip = await createTrip(payload);
+    console.log("Created trip:", createdTrip);
+    navigate("/trips/active");
+  } catch (error) {
+    console.error("Failed to create trip:", error);
+  }
 }
+
   return (
     <Layout>
       <section>
         <h2 className="section-title">New Trip</h2>
+
         <form id="newTrip" className="trip-form" onSubmit={handleSubmit}>
           <label htmlFor="tripName">Trip Name</label>
-          <input type="text" id="tripName" name="tripName" placeholder="Enter trip name" required/>
+          <input
+            type="text"
+            id="tripName"
+            name="tripName"
+            value={formData.tripName}
+            onChange={handleInputChange}
+            placeholder="Enter trip name"
+            required
+          />
+
           <label htmlFor="location">Location</label>
-          <input type="text" id="location" name="location" placeholder="Enter location" required/>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+            placeholder="Enter location"
+            required
+          />
+
           <label htmlFor="tripBudget">Trip Budget</label>
-          <input type="number" id="tripBudget" name="tripBudget" placeholder="Enter trip budget" required/>
+          <input
+            type="number"
+            id="tripBudget"
+            name="tripBudget"
+            value={formData.tripBudget}
+            onChange={handleInputChange}
+            placeholder="Enter trip budget"
+            required
+          />
+
           <label htmlFor="startedAt">Start Date</label>
-          <input type="date" id="startedAt" name="startedAt" placeholder="Enter start date" required/>
+          <input
+            type="date"
+            id="startedAt"
+            name="startedAt"
+            value={formData.startedAt}
+            onChange={handleInputChange}
+            required
+          />
+
           <label htmlFor="notes">Notes</label>
-          <textarea id="notes" name="notes" rows={4} placeholder="Enter notes (optional)"></textarea> 
-        <button type="submit">
-            Create Trip
-        </button>
-      </form>
+          <textarea
+            id="notes"
+            name="notes"
+            value={formData.notes}
+            onChange={handleInputChange}
+            rows={4}
+            placeholder="Enter notes (optional)"
+          />
+
+          <button type="submit">Create Trip</button>
+        </form>
       </section>
     </Layout>
   );
+
 }
 
 export default NewTrip;
