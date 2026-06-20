@@ -1,14 +1,22 @@
 interface CreateTripRequest {
     tripName: string;
     location: string;
-    tripBudget: string;
+    tripBudget: number;
     startedAt: string;
     notes: string;
 }
 
 interface CreateTripResponse {
-    tripId: string;
-    message: string;
+    trip_id: string;
+    user_id: string;
+    trip_name: string;
+    location: string;
+    trip_budget: number;
+    started_at: string;
+    ended_at: string | null;
+    created_at: string;
+    status: string;
+    notes: string | null;
 }
 
 export async function createTrip(

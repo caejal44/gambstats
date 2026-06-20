@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 type FormData = {
   tripName: string;
   location: string;
-  tripBudget: string;
+  tripBudget: number;
   startedAt: string;
   notes: string;
 };
@@ -17,7 +17,7 @@ function NewTrip() {
   const [formData, setFormData] = useState<FormData>({
     tripName: "",
     location: "",
-    tripBudget: "",
+    tripBudget: 0,
     startedAt: "",
     notes: "",
   });
@@ -60,7 +60,7 @@ function NewTrip() {
       <section>
         <h2 className="section-title">New Trip</h2>
 
-        <form id="newTrip" className="trip-form" onSubmit={handleSubmit}>
+        <form id="newTrip" className="entity-form" onSubmit={handleSubmit}>
           <label htmlFor="tripName">Trip Name</label>
           <input
             type="text"

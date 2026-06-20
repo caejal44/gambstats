@@ -138,7 +138,7 @@ h1{
   color: #007bff;
 }
 
-.trip-form {
+.entity-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -146,20 +146,20 @@ h1{
   margin: 0 auto;
 }
 
-.trip-form label {
+.entity-form label {
   color: #f9f3f3;
   font-weight: 600;
 }
 
-.trip-form input,
-.trip-form textarea {
+.entity-form input,
+.entity-form textarea {
   padding: 0.75rem;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-family: inherit;
 }
 
-.trip-form button {
+.entity-form button {
   width: 200px;
   align-self: center;
 }
