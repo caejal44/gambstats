@@ -5,6 +5,7 @@ from typing import Optional
 from src.trips.service import create_trip as create_trip_service
 from src.sessions.service import create_session as create_session_service
 from src.games.service import create_game as create_game_service
+from src.trips.service import show_all_trips_by_user
 
 app = FastAPI()
 
@@ -82,3 +83,8 @@ def create_game_endpoint(payload: dict):
 )
 
     return create_game_service(request, user_id, session_id)
+
+@app.get("/trips")
+def get_trips_endpoint(status: Optional[str] = None):
+    user_id = "dev-user"
+    return show_all_trips_by_user(user_id, status)
