@@ -49,7 +49,7 @@ function NewTrip() {
   try {
     const createdTrip = await createTrip(payload);
     console.log("Created trip:", createdTrip);
-    navigate("/trips/active");
+    navigate("/");
   } catch (error) {
     console.error("Failed to create trip:", error);
   }

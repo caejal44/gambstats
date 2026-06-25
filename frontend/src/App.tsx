@@ -1,8 +1,8 @@
 import { createBrowserRouter, type RouteObject } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import ActiveTrip from "./pages/ActiveTrip"
-import ActiveSession from "./pages/ActiveSession"
-import ActiveGames from "./pages/ActiveGames"
+import EditTrip from "./pages/EditTrip"
+import EditSession from "./pages/EditSession"
+import EditGames from "./pages/EditGames"
 import TripHistory from "./pages/TripHistory";
 import GameHistory from "./pages/GameHistory";
 import NewGame from "./pages/NewGame";
@@ -17,16 +17,16 @@ const routes: RouteObject[] = [
     element: <Dashboard />,
   },
   {
-    path: "/trips/active",
-    element: <ActiveTrip />,
+    path: "/trips/edit",
+    element: <EditTrip />,
   },
   {
-    path: "/sessions/active",
-    element: <ActiveSession />,
+    path: "/sessions/edit",
+    element: <EditSession />,
   },
   {
-    path: "/games/active",
-    element: <ActiveGames />,
+    path: "/games/edit",
+    element: <EditGames />,
   },
   {
     path: "/trips",
