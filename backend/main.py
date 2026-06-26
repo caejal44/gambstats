@@ -8,6 +8,8 @@ from src.sessions.service import show_sessions_by_trip
 from src.games.service import create_game as create_game_service
 from src.trips.service import show_all_trips_by_user
 from src.games.service import show_games_by_session
+from src.games.service import show_game_by_id
+from src.games.service import modify_game
 
 app = FastAPI()
 
@@ -36,6 +38,17 @@ class CreateGameRequest(BaseModel):
     entry_mode: str = ""
     notes: str = ""
     freeplay_used: Optional[float] = None
+
+class EditGameRequest(BaseModel):
+    game_name: Optional[str] 
+    game_type: Optional[str]
+    cash_in: Optional[float]
+    cash_out: Optional[float] 
+    started_at: Optional[datetime]
+    ended_at: Optional[datetime] 
+    entry_mode: str = ""
+    notes: Optional[str]
+    freeplay_used: Optional[float] 
 
 @app.post("/trips")
 def create_trip_endpoint(payload: dict):
@@ -102,3 +115,28 @@ def get_games_endpoint():
     session_id = "36c0ab8a-004c-47bc-b662-e0041ad62282"
     user_id = "dev-user"
     return show_games_by_session(session_id, user_id)
+
+@app.get("/games/{game_id}")
+def get_game_endpoint(game_id: str):
+    user_id = "dev-user"
+    return show_game_by_id(game_id, user_id)
+
+@app.patch("/games/{game_id}")
+def edit_game_endpoint(game_id: str, payload: dict):
+    user_id = "dev-user"
+    game_id = game_id
+    request = EditGameRequest(
+    game_name=payload["gameName"],
+    game_type=payload["gameType"],
+    cash_in=payload["cashIn"],
+    cash_out=payload["cashOut"],
+    started_at=(datetime.fromisoformat(payload["startedAt"])
+    if payload.get("startedAt") else None),
+    ended_at=(datetime.fromisoformat(payload["endedAt"])
+    if payload.get("endedAt") else None),
+    notes=payload.get("notes", ""),
+    entry_mode="",
+    freeplay_used= payload.get("freeplayUsed"),
+)
+
+    return modify_game(request, game_id, user_id,)

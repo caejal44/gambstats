@@ -45,7 +45,7 @@ function Dashboard() {
 }, []);
 
   return (
-    <Layout>
+    <Layout showNav={false}>
       <section>
         <h2 className="section-title">Active Now</h2>
 
@@ -54,7 +54,7 @@ function Dashboard() {
             <Card
               title={activeTrip.trip_name}
               text={`${activeTrip.location} • $${activeTrip.trip_budget}`}
-              buttonText="Edit Trip"
+              buttonText="Trip Details"
               path="/trips/edit"
             />
           ) : (
@@ -69,7 +69,7 @@ function Dashboard() {
             <Card
               title={activeSession.casino}
               text={`Started: ${formatDate(activeSession.started_at)}`}
-              buttonText="Edit Session"
+              buttonText="Session Details"
               path="/sessions/edit"
             />
           ) : (
@@ -86,8 +86,8 @@ function Dashboard() {
               key={game.game_id}
               title={game.game_name}
               text={`${game.game_type} • Cash in: $${game.cash_in}`}
-              buttonText="Edit Game"
-              path="/games/edit"
+              buttonText="Game Details"
+              path={`/games/${game.game_id}/edit`}
             />
           ))
           ) : (

@@ -25,8 +25,8 @@ const routes: RouteObject[] = [
     element: <EditSession />,
   },
   {
-    path: "/games/edit",
-    element: <EditGames />,
+  path: "/games/:gameId/edit",
+  element: <EditGames />,
   },
   {
     path: "/trips",

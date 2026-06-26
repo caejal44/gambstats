@@ -2,9 +2,10 @@ import PageNav from "./PageNav";
 
 type LayoutProps = {
   children: React.ReactNode;
+  showNav?: boolean;
 };
 
-function Layout({ children }: LayoutProps) {
+function Layout({ children, showNav = true }: LayoutProps) {
   return (
     <>
       <header className="main-header">
@@ -17,7 +18,7 @@ function Layout({ children }: LayoutProps) {
         {children}
       </main>
 
-       <PageNav />
+       {showNav && <PageNav />}
     </>
   );
 }

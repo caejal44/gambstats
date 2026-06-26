@@ -8,6 +8,18 @@ interface CreateGameRequest {
 
 }
 
+interface EditGameRequest {
+ gameName: string | null;
+ gameType: string | null;
+ cashIn: number | null;
+ cashOut: number | null;
+ startedAt: string | null;
+ endedAt: string | null;
+ notes: string | null;
+ freeplayUsed: number | null;
+
+}
+
 export interface GameResponse {
  game_id: string;
  session_id: string;
@@ -68,6 +80,38 @@ export async function getGames(): Promise<GameListResponse> {
     }
 
     const data: GameListResponse = await response.json();
+
+    return data;
+}
+
+export async function getGameById(gameId: string): Promise<GameResponse> {
+  const response = await fetch(`/games/${gameId}`);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+export async function editGame(
+    gameId: string,
+    payload: EditGameRequest
+): Promise<GameResponse> {
+
+    const response = await fetch(`/games/${gameId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: GameResponse = await response.json();
 
     return data;
 }
