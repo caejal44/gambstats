@@ -8,7 +8,7 @@ interface CreateGameRequest {
 
 }
 
-interface CreateGameResponse {
+export interface GameResponse {
  game_id: string;
  session_id: string;
  trip_id: string;
@@ -25,9 +25,13 @@ interface CreateGameResponse {
  freeplay_used: number | null;
 }
 
+export interface GameListResponse {
+    games: GameResponse[];
+}
+
 export async function createGame(
     payload: CreateGameRequest
-): Promise<CreateGameResponse> {
+): Promise<GameResponse> {
 
     const API_URL = "/games";
 
@@ -44,7 +48,26 @@ export async function createGame(
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: CreateGameResponse = await response.json();
+    const data: GameResponse = await response.json();
+
+    return data;
+}
+export async function getGames(): Promise<GameListResponse> {
+
+    const API_URL = "/games";
+
+    const response = await fetch(API_URL, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: GameListResponse = await response.json();
 
     return data;
 }

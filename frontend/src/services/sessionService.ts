@@ -4,7 +4,7 @@ interface CreateSessionRequest {
     notes: string;
 }
 
-interface CreateSessionResponse {
+export interface SessionResponse {
   session_id: string;
   user_id: string;
   trip_id: string;
@@ -16,9 +16,13 @@ interface CreateSessionResponse {
   notes: string | null;
 }
 
+export interface SessionListResponse {
+    sessions: SessionResponse[];
+}
+
 export async function createSession(
     payload: CreateSessionRequest
-): Promise<CreateSessionResponse> {
+): Promise<SessionResponse> {
 
     const API_URL = "/sessions";
 
@@ -35,7 +39,26 @@ export async function createSession(
         throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data: CreateSessionResponse = await response.json();
+    const data: SessionResponse = await response.json();
+
+    return data;
+}
+export async function getSessions(): Promise<SessionListResponse> {
+
+    const API_URL = "/sessions";
+
+    const response = await fetch(API_URL, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: SessionListResponse = await response.json();
 
     return data;
 }

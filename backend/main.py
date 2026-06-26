@@ -4,8 +4,10 @@ from datetime import datetime
 from typing import Optional
 from src.trips.service import create_trip as create_trip_service
 from src.sessions.service import create_session as create_session_service
+from src.sessions.service import show_sessions_by_trip
 from src.games.service import create_game as create_game_service
 from src.trips.service import show_all_trips_by_user
+from src.games.service import show_games_by_session
 
 app = FastAPI()
 
@@ -88,3 +90,15 @@ def create_game_endpoint(payload: dict):
 def get_trips_endpoint(status: Optional[str] = None):
     user_id = "dev-user"
     return show_all_trips_by_user(user_id, status)
+
+@app.get("/sessions")
+def get_sessions_endpoint():
+    trip_id = "4147490b-4117-4a79-b77f-6e9d7da9b8d5"
+    user_id = "dev-user"
+    return show_sessions_by_trip(trip_id, user_id)
+
+@app.get("/games")
+def get_games_endpoint():
+    session_id = "36c0ab8a-004c-47bc-b662-e0041ad62282"
+    user_id = "dev-user"
+    return show_games_by_session(session_id, user_id)

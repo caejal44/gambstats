@@ -4,6 +4,9 @@ import Layout from "../components/Layout";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getTrips, type TripResponse } from "../services/tripService";
+import { getSessions, type SessionResponse } from '../services/sessionService';
+import { getGames, type GameResponse } from '../services/gameService';
+import { formatDate } from "../utils/formatters";
 
 function Dashboard() {
   const [activeTrip, setActiveTrip] = useState<TripResponse | null>(null);
@@ -17,6 +20,29 @@ function Dashboard() {
 
     loadTrips();
   }, []);
+
+  const [activeSession, setActiveSession] = useState<SessionResponse | null>(null);
+
+  useEffect(() => {
+    async function loadSession() {
+      const data = await getSessions();
+      const active = data.sessions.find((session) => session.status === "active") ?? null;
+      setActiveSession(active);
+    }
+
+    loadSession();
+  }, []);
+  const [activeGames, setActiveGames] = useState<GameResponse[]>([]);
+
+  useEffect(() => {
+  async function loadGames() {
+    const data = await getGames();
+    const active = data.games.filter((game) => game.status === "active");
+    setActiveGames(active);
+  }
+
+  loadGames();
+}, []);
 
   return (
     <Layout>
@@ -39,6 +65,39 @@ function Dashboard() {
               path="/trips/new"
             />
           )}
+          {activeSession ? (
+            <Card
+              title={activeSession.casino}
+              text={`Started: ${formatDate(activeSession.started_at)}`}
+              buttonText="Edit Session"
+              path="/sessions/edit"
+            />
+          ) : (
+            <Card
+              title="No Active Session"
+              text="Create a new session to begin tracking."
+              buttonText="New Session"
+              path="/sessions/new"
+            />
+          )}
+          {activeGames.length > 0 ? (
+            activeGames.map((game) => (
+            <Card
+              key={game.game_id}
+              title={game.game_name}
+              text={`${game.game_type} • Cash in: $${game.cash_in}`}
+              buttonText="Edit Game"
+              path="/games/edit"
+            />
+          ))
+          ) : (
+          <Card
+            title="No Active Games"
+            text="Create a new game to begin tracking."
+            buttonText="New Game"
+            path="/games/new"
+  />
+)}
         </div>
       </section>
 

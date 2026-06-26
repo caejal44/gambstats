@@ -52,7 +52,7 @@ function NewGame() {
   try {
     const createdGame = await createGame(payload);
     console.log("Created game:", createdGame);
-    navigate("/games/active");
+    navigate("/");
   } catch (error) {
     console.error("Failed to create game:", error);
   }
