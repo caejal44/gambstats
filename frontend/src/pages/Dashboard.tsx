@@ -1,6 +1,7 @@
 import '../App.css';
 import Card from "../components/Card";
 import Layout from "../components/Layout";
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import { getTrips, type TripResponse } from "../services/tripService";
 
@@ -41,7 +42,30 @@ function Dashboard() {
         </div>
       </section>
 
-      {/* Start Now and History sections here */}
+      <section>
+        <div className="dashboard-actions">
+          <h2 className="section-subtitle">Quick Actions </h2>
+
+            <nav className="dashboard-links">
+              <Link to="/trips/new">New Trip</Link>
+              <Link to="/sessions/new">New Session</Link>
+              <Link to="/games/new">New Game</Link>
+            </nav>
+        </div>
+      </section>
+
+      <section>
+        <div className="dashboard-actions">
+          <h2 className="section-subtitle">My History </h2>
+
+            <nav className="dashboard-links">
+              <Link to="/trips">Trip History</Link>
+              <Link to="/sessions">Session History</Link>
+              <Link to="/games">Game History</Link>
+            </nav>
+        </div>
+      </section>
+
     </Layout>
   );
 }
