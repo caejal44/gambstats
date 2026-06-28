@@ -10,12 +10,12 @@ import { useEffect } from "react";
 type FormData = {
  gameName: string;
  gameType: string;
- cashIn: number;
- cashOut: number;
+ cashIn: string;
+ cashOut: string;
  startedAt: string;
  endedAt: string;
  notes: string;
- freeplayUsed: number;
+ freeplayUsed: string;
 };
 
 function EditGames() {
@@ -24,12 +24,12 @@ function EditGames() {
   const [formData, setFormData] = useState<FormData>({
     gameName: "",
     gameType: "",
-    cashIn: 0,
-    cashOut: 0,
+    cashIn: "",
+    cashOut: "",
     startedAt: "",
     endedAt: "",
     notes: "",
-    freeplayUsed: 0,
+    freeplayUsed: "",
   });
 
   useEffect(() => {
@@ -41,12 +41,12 @@ function EditGames() {
     setFormData({
       gameName: game.game_name,
       gameType: game.game_type,
-      cashIn: game.cash_in,
-      cashOut: game.cash_out ?? 0,
-      startedAt: game.started_at ?? "",
-      endedAt: game.ended_at ?? "",
+      cashIn: String(game.cash_in),
+      cashOut: game.cash_out === null ? "" : String(game.cash_out),
+      startedAt: game.started_at ? game.started_at.slice(0, 10) : "",
+      endedAt: game.ended_at ? game.ended_at.slice(0, 10) : "",
       notes: game.notes ?? "",
-      freeplayUsed: game.freeplay_used ?? 0,
+      freeplayUsed: game.freeplay_used === null ? "" : String(game.freeplay_used),
     });
   }
 
@@ -72,12 +72,12 @@ function EditGames() {
   const payload = {
     gameName: formData.gameName,
     gameType: formData.gameType,
-    cashIn: formData.cashIn,
-    cashOut: formData.cashOut,
-    startedAt: formData.startedAt,
-    endedAt: formData.endedAt,
+    cashIn: formData.cashIn === "" ? null : Number(formData.cashIn),
+    cashOut: formData.cashOut === "" ? null : Number(formData.cashOut),
+    startedAt: formData.startedAt || null,
+    endedAt: formData.endedAt || null,
     notes: formData.notes,
-    freeplayUsed: formData.freeplayUsed
+    freeplayUsed: formData.freeplayUsed === "" ? null : Number(formData.freeplayUsed),
   };
 
   try {

@@ -5,6 +5,8 @@ from typing import Optional
 from src.trips.service import create_trip as create_trip_service
 from src.sessions.service import create_session as create_session_service
 from src.sessions.service import show_sessions_by_trip
+from src.sessions.service import show_session_by_id
+from src.sessions.service import modify_session
 from src.games.service import create_game as create_game_service
 from src.trips.service import show_all_trips_by_user
 from src.games.service import show_games_by_session
@@ -49,6 +51,13 @@ class EditGameRequest(BaseModel):
     entry_mode: str = ""
     notes: Optional[str]
     freeplay_used: Optional[float] 
+
+class EditSessionRequest(BaseModel):
+    casino: Optional[str] 
+    started_at: Optional[datetime]
+    ended_at: Optional[datetime] 
+    notes: Optional[str]
+
 
 @app.post("/trips")
 def create_trip_endpoint(payload: dict):
@@ -140,3 +149,23 @@ def edit_game_endpoint(game_id: str, payload: dict):
 )
 
     return modify_game(request, game_id, user_id,)
+
+@app.get("/sessions/{session_id}")
+def get_session_endpoint(session_id: str):
+    user_id = "dev-user"
+    return show_session_by_id(session_id, user_id)
+
+@app.patch("/sessions/{session_id}")
+def edit_session_endpoint(session_id: str, payload: dict):
+    user_id = "dev-user"
+    session_id = session_id
+    request = EditSessionRequest(
+    casino=payload["casino"],
+    started_at=(datetime.fromisoformat(payload["startedAt"])
+    if payload.get("startedAt") else None),
+    ended_at=(datetime.fromisoformat(payload["endedAt"])
+    if payload.get("endedAt") else None),
+    notes=payload.get("notes", ""),
+)
+
+    return modify_session(request, session_id, user_id,)

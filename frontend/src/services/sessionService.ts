@@ -16,6 +16,14 @@ export interface SessionResponse {
   notes: string | null;
 }
 
+interface EditSessionRequest {
+ casino: string | null;
+ startedAt: string | null;
+ endedAt: string | null;
+ notes: string | null;
+}
+
+
 export interface SessionListResponse {
     sessions: SessionResponse[];
 }
@@ -59,6 +67,37 @@ export async function getSessions(): Promise<SessionListResponse> {
     }
 
     const data: SessionListResponse = await response.json();
+
+    return data;
+}
+export async function getSessionById(sessionId: string): Promise<SessionResponse> {
+  const response = await fetch(`/sessions/${sessionId}`);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+export async function editSession(
+    sessionId: string,
+    payload: EditSessionRequest
+): Promise<SessionResponse> {
+
+    const response = await fetch(`/sessions/${sessionId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: SessionResponse = await response.json();
 
     return data;
 }

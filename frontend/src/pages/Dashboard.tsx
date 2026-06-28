@@ -70,7 +70,7 @@ function Dashboard() {
               title={activeSession.casino}
               text={`Started: ${formatDate(activeSession.started_at)}`}
               buttonText="Session Details"
-              path="/sessions/edit"
+              path={`/sessions/${activeSession.session_id}/edit`}
             />
           ) : (
             <Card

@@ -21,7 +21,7 @@ const routes: RouteObject[] = [
     element: <EditTrip />,
   },
   {
-    path: "/sessions/edit",
+    path: "/sessions/:sessionId/edit",
     element: <EditSession />,
   },
   {
