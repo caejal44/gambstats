@@ -23,6 +23,16 @@ export interface TripListResponse {
     trips: TripResponse[];
 }
 
+interface EditTripRequest {
+ tripName: string | null;
+ location: string | null;
+ tripBudget: number | null;
+ startedAt: string | null;
+ endedAt: string | null;
+ notes: string | null;
+}
+
+
 export async function createTrip(
     payload: CreateTripRequest
 ): Promise<TripResponse> {
@@ -63,6 +73,38 @@ export async function getTrips(): Promise<TripListResponse> {
     }
 
     const data: TripListResponse = await response.json();
+
+    return data;
+}
+
+export async function getTripById(tripId: string): Promise<TripResponse> {
+  const response = await fetch(`/trips/${tripId}`);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+
+  return await response.json();
+}
+export async function editTrip(
+    tripId: string,
+    payload: EditTripRequest
+): Promise<TripResponse> {
+
+    const response = await fetch(`/trips/${tripId}`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data: TripResponse = await response.json();
 
     return data;
 }

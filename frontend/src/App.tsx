@@ -17,7 +17,7 @@ const routes: RouteObject[] = [
     element: <Dashboard />,
   },
   {
-    path: "/trips/edit",
+    path: "/trips/:tripId/edit",
     element: <EditTrip />,
   },
   {

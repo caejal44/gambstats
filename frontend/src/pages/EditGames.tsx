@@ -6,6 +6,7 @@ import { editGame } from "../services/gameService";
 import { useNavigate } from "react-router-dom";
 import { getGameById } from "../services/gameService";
 import { useEffect } from "react";
+import { toDateTimeLocal } from "../utils/formatters";
 
 type FormData = {
  gameName: string;
@@ -43,8 +44,8 @@ function EditGames() {
       gameType: game.game_type,
       cashIn: String(game.cash_in),
       cashOut: game.cash_out === null ? "" : String(game.cash_out),
-      startedAt: game.started_at ? game.started_at.slice(0, 10) : "",
-      endedAt: game.ended_at ? game.ended_at.slice(0, 10) : "",
+      startedAt: toDateTimeLocal(game.started_at),
+      endedAt: toDateTimeLocal(game.ended_at),
       notes: game.notes ?? "",
       freeplayUsed: game.freeplay_used === null ? "" : String(game.freeplay_used),
     });
@@ -133,7 +134,7 @@ function EditGames() {
 
           <label htmlFor="startedAt">Start Date</label>
           <input
-            type="date"
+            type="datetime-local"
             id="startedAt"
             name="startedAt"
             value={formData.startedAt}
@@ -142,7 +143,7 @@ function EditGames() {
 
           <label htmlFor="endeddAt">End Date</label>
           <input
-            type="date"
+            type="datetime-local"
             id="endedAt"
             name="endedAt"
             value={formData.endedAt}

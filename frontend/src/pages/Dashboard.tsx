@@ -55,7 +55,7 @@ function Dashboard() {
               title={activeTrip.trip_name}
               text={`${activeTrip.location} • $${activeTrip.trip_budget}`}
               buttonText="Trip Details"
-              path="/trips/edit"
+              path={`/trips/${activeTrip.trip_id}/edit`}
             />
           ) : (
             <Card

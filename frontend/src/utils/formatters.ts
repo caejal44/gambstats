@@ -7,3 +7,8 @@ export function formatDate(dateString: string | null) {
     year: "numeric",
   });
 }
+
+export function toDateTimeLocal(value: string | null) {
+  if (!value) return "";
+  return value.slice(0, 16);
+}

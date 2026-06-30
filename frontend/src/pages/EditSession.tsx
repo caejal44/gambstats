@@ -6,6 +6,7 @@ import { editSession } from "../services/sessionService";
 import { useNavigate } from "react-router-dom";
 import { getSessionById } from "../services/sessionService";
 import { useEffect } from "react";
+import { toDateTimeLocal } from "../utils/formatters";
 
 
 type FormData = {
@@ -33,8 +34,8 @@ function EditSession() {
 
     setFormData({
       casino: session.casino,
-      startedAt: session.started_at ? session.started_at.slice(0, 10) : "",
-      endedAt: session.ended_at ? session.ended_at.slice(0, 10) : "",
+      startedAt: toDateTimeLocal(session.started_at),
+      endedAt: toDateTimeLocal(session.ended_at),
       notes: session.notes ?? "",
     });
   }
@@ -86,18 +87,18 @@ function EditSession() {
             onChange={handleInputChange}
           />
 
-          <label htmlFor="startedAt">Start Date</label>
+          <label htmlFor="startedAt">Start Date/Time</label>
           <input
-            type="date"
+            type="datetime-local"
             id="startedAt"
             name="startedAt"
             value={formData.startedAt}
             onChange={handleInputChange}
           />
 
-          <label htmlFor="endeddAt">End Date</label>
+          <label htmlFor="endeddAt">End Date/Time</label>
           <input
-            type="date"
+            type="datetime-local"
             id="endedAt"
             name="endedAt"
             value={formData.endedAt}
